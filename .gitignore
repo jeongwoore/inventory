@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# 가상환경
+venv/
+
+# DB 파일, 환경변수 등
+*.db
+.env
+
+# IDE 설정
+.vscode/
+.idea/
