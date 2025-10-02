@@ -21,18 +21,18 @@ Built with PyQt5 and MySQL, it allows adding, updating, deleting, and checking s
 ## Installation and Running
 1. Clone the project
 ''bash
-git clone https://github.com/jeongwoore/inventory.git
-cd inventory
+- git clone https://github.com/jeongwoore/inventory.git
+- cd inventory
 
 2. Create and activate a virtual environment
 
-python -m venv venv
-venv\Scripts\activate
+- python -m venv venv
+- venv\Scripts\activate
 
 
 3. Install required library
-pip install PyQt5
-pip install pymysql
+- pip install PyQt5
+- pip install pymysql
 
 
 4. Set up MySQL database
@@ -48,4 +48,4 @@ CREATE TABLE menu (
 );
 
 5. Run the program
-python app.py
+- python app.py
