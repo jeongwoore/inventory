@@ -2,17 +2,15 @@ create database if not exists burger default character set utf8mb4;
 
 use burger;
 
-CREATE TABLE if not exists Menu (
-	카테고리 VARCHAR(20),
-    메뉴번호 INT auto_increment,
-    메뉴이름 VARCHAR(100) primary key,
-    가격 INT,
-    남은수량 INT
+CREATE TABLE if not exists menu (
+	category VARCHAR(20),
+    id INT auto_increment primary key,
+    name VARCHAR(100),
+    price INT,
+	stock INT
 );
 
-
-
-INSERT INTO Menu (카테고리, 메뉴이름, 가격, 남은수량) VALUES
+INSERT INTO menu (category, name, price, stock) VALUES
 -- 와퍼
 ('와퍼', '와퍼', 7200, 50),
 ('와퍼', '치즈와퍼', 7500, 50),

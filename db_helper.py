@@ -11,28 +11,54 @@ DB_CONFIG = {
 }
 
 class DB:
-    def __init__(self, host=None, user=None, password=None, database=None, charset="utf8mb4", cursorclass=pymysql.cursors.DictCursor):
-        self.connection = None
-        self.config = {
-            "host": host or DB_CONFIG["host"],
-            "user": user or DB_CONFIG["user"],
-            "password": password or DB_CONFIG["password"],
-            "database": database or DB_CONFIG["database"],
-            "charset": charset,
-            "cursorclass": cursorclass
-        }
+    def __init__(self, **config):
+        self.config = config
 
     def connect(self):
-        if self.connection is None:
-            self.connection = pymysql.connect(**self.config)
-        return self.connection
+        return pymysql.connect(**self.config)
+    
+    def fetch_items(self):
+        sql = "SELECT * FROM menu ORDER BY id"
+        with self.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                return cur.fetchall() 
 
-    def fetchall(self, query, params=None):
-        conn = self.connect()
-        try:
-            with conn.cursor() as cursor:
-                cursor.execute(query, params)
-                return cursor.fetchall()
-        except Exception as e:
-            print(f"조회 에러: {e}")
-            return []
+    def insert_items(self, category, name, price, stock) :
+        sql = "INSERT INTO menu (category, name, price, stock) VALUES (%s, %s, %s, %s)"
+        with self.connect() as conn:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (category, name, price, stock))
+                conn.commit()
+                return True
+            except Exception as e:
+                print(e)
+                conn.rollback()
+                return False
+    
+    def update_items(self, category, id, name, price, stock) :
+        sql = "UPDATE menu SET category=%s, name=%s, price=%s, stock=%s WHERE id=%s"
+        with self.connect() as conn:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (category, name, price, stock, id))
+                conn.commit()
+                return True
+            except Exception as e:
+                print(e)
+                conn.rollback()
+                return False
+    
+    def delete_items(self, id) :
+        sql = "DELETE FROM menu WHERE id=%s"
+        with self.connect() as conn:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute(sql, (id,))
+                conn.commit()
+                return True
+            except Exception as e:
+                print(e)
+                conn.rollback()
+                return False

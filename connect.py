@@ -1,3 +1,4 @@
+#connect.py
 import pymysql
 
 conn = pymysql.connect(
@@ -5,7 +6,7 @@ conn = pymysql.connect(
     user="root",
     password="tjwjddn0904@",
     database="burger",
-    charset="utf8"
+    charset="utf8mb4"
 )
 
 cur = conn.cursor()
